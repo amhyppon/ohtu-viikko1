@@ -75,4 +75,41 @@ public class VarastoTest {
         varasto = new Varasto(-1,-1);
         varasto.toString();
     }
+    
+    @Test
+    public void liikaLisaus() {
+        varasto.lisaaVarastoon(100);
+
+        // saldon pitäisi olla sama kuin tilavuus vaikka lisattiin 100
+        assertEquals(10, varasto.getSaldo(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void liikaaPois() {
+        varasto.lisaaVarastoon(8);
+
+        double saatuMaara = varasto.otaVarastosta(200);
+
+        //saadaan mita siella oli vaikka pyydettiin 200 ja saldo on nollassa 
+        assertEquals(8, saatuMaara, vertailuTarkkuus);
+        assertEquals(0, varasto.getSaldo(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void virheellinenLisaus() {
+        varasto.lisaaVarastoon(-2);
+
+        // saldon pitäisi olla sama kuin alussa
+        assertEquals(0, varasto.getSaldo(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void virheellinenOtto() {
+        varasto.otaVarastosta(-2);
+
+        // saldon pitäisi olla sama kuin alussa
+        assertEquals(0, varasto.getSaldo(), vertailuTarkkuus);
+    }
+    
+    
 }
